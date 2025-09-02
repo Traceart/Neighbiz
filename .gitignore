@@ -1,0 +1,11 @@
+node_modules/
+.env
+.DS_Store
+*.log
+npm-debug.log*
+git remote add origin https://github.com/Traceart/neighbiz-backend.git
+git branch -M main
+git push -u origin main
+git add [User.js](http://_vscodecontentref_/2)
+git commit -m "Fix User model: remove duplicate mongoose and unrelated code"
+git push

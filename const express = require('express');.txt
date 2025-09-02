@@ -1,0 +1,22 @@
+const express = require('express');
+const router = express.Router();
+const User = require('./models/User'); // Make sure this model exists
+const bcrypt = require('bcryptjs');
+
+// Register User
+router.post('/register', async (req, res) => {
+  try {
+    const { firstName, lastName, email, password } = req.body;
+    const existing = await User.findOne({ email });
+    if (existing) return res.status(400).json({ message: 'Email already in use' });
+
+    const hashed = await bcrypt.hash(password, 10);
+    const user = new User({ firstName, lastName, email, password: hashed });
+    await user.save();
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+module.exports = router;
